@@ -32,6 +32,15 @@ const timeSlots = [
     { id: 6, time: '20:00 - 22:00' }
 ];
 
+// 获取当前日期
+function getCurrentDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
 // 初始化预约表格
 async function initScheduleTable() {
     const table = document.getElementById('scheduleTable');
@@ -71,7 +80,7 @@ async function initScheduleTable() {
             const isBooked = !!bookings[key];
             
             button.className = `booking-button ${isBooked ? 'booked' : ''}`;
-            button.textContent = isBooked ? '取消预约' : '预约';
+            button.textContent = `${slot.time}\n${getCurrentDate()}`;
             button.onclick = () => toggleBooking(room.id, slot.id);
             roomDiv.appendChild(button);
         });
@@ -92,13 +101,13 @@ async function toggleBooking(roomId, slotId) {
     if (isBooked) {
         // 取消预约
         await database.ref(`bookings/${key}`).remove();
-        button.textContent = '预约';
         button.classList.remove('booked');
+        button.style.backgroundColor = 'green'; // 未预约时显示绿色
     } else {
         // 新增预约
         await database.ref(`bookings/${key}`).set(true);
-        button.textContent = '取消预约';
         button.classList.add('booked');
+        button.style.backgroundColor = 'red'; // 预约后显示红色
     }
 }
 
