@@ -42,7 +42,7 @@ function getCurrentDate() {
 }
 
 // 初始化预约表格
-async function initScheduleTable() {
+async function initScheduleTable(selectedDate) {
     const table = document.getElementById('scheduleTable');
     
     // 清空现有内容
@@ -74,14 +74,14 @@ async function initScheduleTable() {
         // 添加每个时间段的预约按钮
         timeSlots.forEach(slot => {
             const button = document.createElement('button');
-            const key = `${room.id}-${slot.id}`;
+            const key = `${selectedDate}-${room.id}-${slot.id}`; // 使用选择的日期作为键的一部分
             
             // 从 Firebase 获取当前状态
             const isBooked = !!bookings[key];
             
             button.className = `booking-button ${isBooked ? 'booked' : ''}`;
-            button.textContent = `${slot.time}\n${getCurrentDate()}`;
-            button.onclick = () => toggleBooking(room.id, slot.id);
+            button.textContent = isBooked ? '取消预约' : '预约';
+            button.onclick = () => toggleBooking(selectedDate, room.id, slot.id);
             roomDiv.appendChild(button);
         });
 
@@ -90,9 +90,9 @@ async function initScheduleTable() {
 }
 
 // 切换预约状态
-async function toggleBooking(roomId, slotId) {
-    const key = `${roomId}-${slotId}`;
-    const button = document.querySelector(`button[onclick="toggleBooking(${roomId}, ${slotId})"]`);
+async function toggleBooking(selectedDate, roomId, slotId) {
+    const key = `${selectedDate}-${roomId}-${slotId}`;
+    const button = document.querySelector(`button[onclick="toggleBooking('${selectedDate}', ${roomId}, ${slotId})"]`);
     
     // 获取当前状态
     const snapshot = await database.ref(`bookings/${key}`).once('value');
@@ -101,15 +101,34 @@ async function toggleBooking(roomId, slotId) {
     if (isBooked) {
         // 取消预约
         await database.ref(`bookings/${key}`).remove();
+        button.textContent = '预约';
         button.classList.remove('booked');
         button.style.backgroundColor = 'green'; // 未预约时显示绿色
     } else {
         // 新增预约
         await database.ref(`bookings/${key}`).set(true);
+        button.textContent = '取消预约';
         button.classList.add('booked');
         button.style.backgroundColor = 'red'; // 预约后显示红色
     }
 }
 
+// 初始化日期选择器
+function initDatePicker() {
+    const datePicker = document.createElement('input');
+    datePicker.type = 'date';
+    datePicker.value = getCurrentDate(); // 默认选择当前日期
+    datePicker.onchange = (event) => {
+        const selectedDate = event.target.value;
+        initScheduleTable(selectedDate); // 根据选择的日期重新加载表格
+    };
+
+    // 将日期选择器添加到页面
+    const container = document.getElementById('datePickerContainer');
+    container.innerHTML = ''; // 清空现有内容
+    container.appendChild(datePicker);
+}
+
 // 初始化
-initScheduleTable();
+initDatePicker(); // 初始化日期选择器
+initScheduleTable(getCurrentDate()); // 初始化表格，默认使用当前日期
