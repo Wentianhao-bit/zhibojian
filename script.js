@@ -1,3 +1,17 @@
+// 初始化 Firebase
+firebase.initializeApp({
+  apiKey: "AIzaSyDJg9clXyEOl3UY1fGavgwxwbSK8IAz7_Q",
+  authDomain: "lszbj-87e83.firebaseapp.com",
+  databaseURL: "https://lszbj-87e83-default-rtdb.firebaseio.com",
+  projectId: "lszbj-87e83",
+  storageBucket: "lszbj-87e83.firebasestorage.app",
+  messagingSenderId: "877584718053",
+  appId: "1:877584718053:web:acd93008281742808f5c0c",
+  measurementId: "G-SBR4LL2JHY"
+};
+
+const database = firebase.database();
+
 // 直播间数据
 const liveRooms = [
     { id: 1, title: 'B606' },
