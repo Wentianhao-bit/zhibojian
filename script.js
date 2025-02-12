@@ -15,11 +15,11 @@ const database = firebase.database();
 
 // 直播间数据
 const liveRooms = [
-    { id: 1, title: '游戏直播间' },
-    { id: 2, title: '音乐直播间' },
-    { id: 3, title: '美食直播间' },
-    { id: 4, title: '科技直播间' },
-    { id: 5, title: '教育直播间' }
+    { id: 1, title: 'B606' },
+    { id: 2, title: 'B610' },
+    { id: 3, title: 'B612' },
+    { id: 4, title: 'B304' },
+    { id: 5, title: 'B308' }
 ];
 
 // 时间段数据
