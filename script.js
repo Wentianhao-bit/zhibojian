@@ -31,12 +31,16 @@ const timeSlots = [
     { id: 6, time: '20:00 - 22:00' }
 ];
 
-// 从localStorage加载预约状态
-let bookings = JSON.parse(localStorage.getItem('bookings')) || {};
-
 // 初始化预约表格
 function initScheduleTable() {
     const table = document.getElementById('scheduleTable');
+
+  // 清空现有内容
+    table.innerHTML = '';
+
+    // 从 Firebase 加载预约数据
+    const snapshot = await database.ref('bookings').once('value');
+    const bookings = snapshot.val() || {};
 
     // 添加时间段标题
     timeSlots.forEach(slot => {
@@ -60,6 +64,11 @@ function initScheduleTable() {
         // 添加每个时间段的预约按钮
         timeSlots.forEach(slot => {
             const button = document.createElement('button');
+            const key = `${room.id}-${slot.id}`;
+            
+            // 从 Firebase 获取当前状态
+            const isBooked = !!bookings[key];
+          
             button.className = `booking-button ${bookings[`${room.id}-${slot.id}`] ? 'booked' : ''}`;
             button.textContent = bookings[`${room.id}-${slot.id}`] ? '取消预约' : '预约';
             button.onclick = () => toggleBooking(room.id, slot.id);
@@ -75,18 +84,21 @@ function toggleBooking(roomId, slotId) {
     const key = `${roomId}-${slotId}`;
     const button = document.querySelector(`button[onclick="toggleBooking(${roomId}, ${slotId})"]`);
 
-    if (bookings[key]) {
-        delete bookings[key];
+     // 获取当前状态
+    const snapshot = await database.ref(`bookings/${key}`).once('value');
+    const isBooked = snapshot.exists();
+
+    if (isBooked) {
+        // 取消预约
+        await database.ref(`bookings/${key}`).remove();
         button.textContent = '预约';
         button.classList.remove('booked');
     } else {
-        bookings[key] = true;
+        // 新增预约
+        await database.ref(`bookings/${key}`).set(true);
         button.textContent = '取消预约';
         button.classList.add('booked');
     }
-
-    // 保存到localStorage
-    localStorage.setItem('bookings', JSON.stringify(bookings));
 }
 
 // 初始化
