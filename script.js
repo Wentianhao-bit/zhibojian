@@ -1,5 +1,5 @@
 // 初始化 Firebase
-firebase.initializeApp({
+const firebaseConfig = {
   apiKey: "AIzaSyDJg9clXyEOl3UY1fGavgwxwbSK8IAz7_Q",
   authDomain: "lszbj-87e83.firebaseapp.com",
   databaseURL: "https://lszbj-87e83-default-rtdb.firebaseio.com",
@@ -7,17 +7,19 @@ firebase.initializeApp({
   storageBucket: "lszbj-87e83.firebasestorage.app",
   messagingSenderId: "877584718053",
   appId: "1:877584718053:web:acd93008281742808f5c0c",
+  measurementId: "G-SBR4LL2JHY"
 };
 
+firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 // 直播间数据
 const liveRooms = [
-    { id: 1, title: 'B606' },
-    { id: 2, title: 'B610' },
-    { id: 3, title: 'B612' },
-    { id: 4, title: 'B304' },
-    { id: 5, title: 'B308' }
+    { id: 1, title: '游戏直播间' },
+    { id: 2, title: '音乐直播间' },
+    { id: 3, title: '美食直播间' },
+    { id: 4, title: '科技直播间' },
+    { id: 5, title: '教育直播间' }
 ];
 
 // 时间段数据
@@ -33,7 +35,7 @@ const timeSlots = [
 // 初始化预约表格
 async function initScheduleTable() {
     const table = document.getElementById('scheduleTable');
-
+    
     // 清空现有内容
     table.innerHTML = '';
 
@@ -49,7 +51,7 @@ async function initScheduleTable() {
         table.appendChild(timeSlot);
     });
 
-    // 添加直播间和预约按钮
+    // 添加直播间和按钮
     liveRooms.forEach(room => {
         const roomDiv = document.createElement('div');
         roomDiv.className = 'room';
@@ -67,9 +69,9 @@ async function initScheduleTable() {
             
             // 从 Firebase 获取当前状态
             const isBooked = !!bookings[key];
-          
-            button.className = `booking-button ${bookings[`${room.id}-${slot.id}`] ? 'booked' : ''}`;
-            button.textContent = bookings[`${room.id}-${slot.id}`] ? '取消预约' : '预约';
+            
+            button.className = `booking-button ${isBooked ? 'booked' : ''}`;
+            button.textContent = isBooked ? '取消预约' : '预约';
             button.onclick = () => toggleBooking(room.id, slot.id);
             roomDiv.appendChild(button);
         });
@@ -82,8 +84,8 @@ async function initScheduleTable() {
 async function toggleBooking(roomId, slotId) {
     const key = `${roomId}-${slotId}`;
     const button = document.querySelector(`button[onclick="toggleBooking(${roomId}, ${slotId})"]`);
-
-     // 获取当前状态
+    
+    // 获取当前状态
     const snapshot = await database.ref(`bookings/${key}`).once('value');
     const isBooked = snapshot.exists();
 
