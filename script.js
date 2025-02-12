@@ -7,7 +7,6 @@ firebase.initializeApp({
   storageBucket: "lszbj-87e83.firebasestorage.app",
   messagingSenderId: "877584718053",
   appId: "1:877584718053:web:acd93008281742808f5c0c",
-  measurementId: "G-SBR4LL2JHY"
 };
 
 const database = firebase.database();
@@ -32,10 +31,10 @@ const timeSlots = [
 ];
 
 // 初始化预约表格
-function initScheduleTable() {
+async function initScheduleTable() {
     const table = document.getElementById('scheduleTable');
 
-  // 清空现有内容
+    // 清空现有内容
     table.innerHTML = '';
 
     // 从 Firebase 加载预约数据
@@ -80,7 +79,7 @@ function initScheduleTable() {
 }
 
 // 切换预约状态
-function toggleBooking(roomId, slotId) {
+async function toggleBooking(roomId, slotId) {
     const key = `${roomId}-${slotId}`;
     const button = document.querySelector(`button[onclick="toggleBooking(${roomId}, ${slotId})"]`);
 
