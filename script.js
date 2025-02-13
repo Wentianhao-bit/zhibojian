@@ -52,14 +52,6 @@ async function initScheduleTable(selectedDate) {
     const snapshot = await database.ref('bookings').once('value');
     const bookings = snapshot.val() || {};
 
-    // 添加时间段标题
-    timeSlots.forEach(slot => {
-        const timeSlot = document.createElement('div');
-        timeSlot.className = 'time-slot';
-        timeSlot.textContent = slot.time;
-        table.appendChild(timeSlot);
-    });
-
     // 添加直播间和按钮
     liveRooms.forEach(room => {
         const roomDiv = document.createElement('div');
