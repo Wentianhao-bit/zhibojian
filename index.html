@@ -3,20 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>直播间预约系统</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>有道领世直播间预约管理</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>直播间预约系统</h1>
-        
-        <div id="datePickerContainer"></div>
-
-        <div id="scheduleTable"></div>
+        <h1>有道领世直播间预约管理</h1>
+        <!-- 公告栏 -->
+    <div class="announcement">
+        以下直播间仅限有道领世内部直播项目使用，勿擅自调整屋内设备，使用后务必带走屋内垃圾！！！有任何问题泡泡联系温天皓。
     </div>
-
-    <script src="js/main.js"></script>
+        
+        <div id="datePickerContainer"></div> <!-- 日期选择器容器 -->
+        
+        <div id="scheduleTable"></div> <!-- 预约表格容器 -->
+        <div class="schedule-table" id="scheduleTable"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
