@@ -3,40 +3,46 @@
     margin-top: 5px;
     font-size: 14px;
     color: #333;
+    text-align: center;  /* 居中显示 */
+    width: 100%;        /* 占满父容器宽度 */
 }
 
-/* 其他样式保持不变 */
+/* 直播间样式 */
 .room {
     margin-bottom: 20px;
 }
 
+/* 直播间标题样式 */
 .room-title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+/* 时间段容器样式 */
 .time-slot {
-    display: flex;       /* 新增flex布局 */
+    display: flex;       /* 横向排列 */
     flex-wrap: wrap;     /* 允许换行 */
-    gap: 8px;           /* 按钮间距（替换原来的margin） */
+    gap: 8px;           /* 按钮间距 */
     margin-bottom: 10px;
 }
 
+/* 预约按钮样式 */
 .booking-button {
-    background-color: #8bc34a;
+    background-color: #8bc34a; /* 柔和的绿色 */
     color: white;
     border: none;
     padding: 10px;
     cursor: pointer;
     white-space: nowrap;
-    border-radius: 12px;
-    transition: background-color 0.3s ease;
+    border-radius: 12px; /* 圆角矩形 */
+    transition: background-color 0.3s ease; /* 颜色过渡效果 */
     font-size: 14px;
     flex: 0 0 auto;     /* 防止按钮伸缩 */
-    width: 120px;       /* 固定宽度替代百分比 */
+    width: 120px;       /* 固定宽度 */
 }
 
+/* 已预约按钮样式 */
 .booking-button.booked {
-    background-color: #ff6b6b;
+    background-color: #ff6b6b; /* 柔和的红色 */
 }
