@@ -1,14 +1,18 @@
 .booking-button {
-    background-color: green; /* 默认绿色 */
+    background-color: #8bc34a; /* 柔和的绿色 */
     color: white;
     border: none;
     padding: 10px;
     margin: 5px;
     cursor: pointer;
     text-align: center;
-    white-space: nowrap; /* 防止文字换行 */
+    white-space: nowrap;
+    width: 100%;
+    border-radius: 12px; /* 圆角矩形 */
+    transition: background-color 0.3s ease; /* 添加颜色过渡效果 */
+    font-size: 14px;
 }
 
 .booking-button.booked {
-    background-color: red; /* 预约后红色 */
+    background-color: #ff6b6b; /* 柔和的红色 */
 }
