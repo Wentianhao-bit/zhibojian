@@ -1,5 +1,6 @@
 /* 添加预约人姓名的样式 */
 .borrower-name {
+    text-align: center;  /* 新增居中属性 */
     margin-top: 5px;
     font-size: 14px;
     color: #333;
