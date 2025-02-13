@@ -21,13 +21,20 @@
 }
 
 .booking-button {
-    padding: 10px;
-    background-color: green;
+    background-color: #8bc34a; /* 柔和的绿色 */
     color: white;
     border: none;
+    padding: 10px;
+    margin: 5px;
     cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    width: 13%;
+    border-radius: 12px; /* 圆角矩形 */
+    transition: background-color 0.3s ease; /* 添加颜色过渡效果 */
+    font-size: 14px;
 }
 
 .booking-button.booked {
-    background-color: red;
+    background-color: #ff6b6b; /* 柔和的红色 */
 }
