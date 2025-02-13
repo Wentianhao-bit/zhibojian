@@ -65,16 +65,29 @@ async function initScheduleTable(selectedDate) {
 
         // 添加每个时间段的预约按钮
         timeSlots.forEach(slot => {
+            const slotDiv = document.createElement('div');
+            slotDiv.className = 'time-slot';
+
             const button = document.createElement('button');
             const key = `${selectedDate}-${room.id}-${slot.id}`; // 使用选择的日期作为键的一部分
             
             // 从 Firebase 获取当前状态
-            const isBooked = !!bookings[key];
-            
+            const bookingInfo = bookings[key] || {};
+            const isBooked = bookingInfo.booked || false;
+            const borrower = bookingInfo.borrower || '';
+
             button.className = `booking-button ${isBooked ? 'booked' : ''}`;
             button.textContent = slot.time; // 直接在按钮上显示时间段
-            button.onclick = () => toggleBooking(selectedDate, room.id, slot.id, button);
-            roomDiv.appendChild(button);
+            button.onclick = () => toggleBooking(selectedDate, room.id, slot.id, button, borrowerDiv);
+            slotDiv.appendChild(button);
+
+            // 添加预约人姓名显示
+            const borrowerDiv = document.createElement('div');
+            borrowerDiv.className = 'borrower-name';
+            borrowerDiv.textContent = borrower;
+            slotDiv.appendChild(borrowerDiv);
+
+            roomDiv.appendChild(slotDiv);
         });
 
         table.appendChild(roomDiv);
@@ -82,23 +95,33 @@ async function initScheduleTable(selectedDate) {
 }
 
 // 切换预约状态
-async function toggleBooking(selectedDate, roomId, slotId, button) {
+async function toggleBooking(selectedDate, roomId, slotId, button, borrowerDiv) {
     const key = `${selectedDate}-${roomId}-${slotId}`;
     
     // 获取当前状态
     const snapshot = await database.ref(`bookings/${key}`).once('value');
-    const isBooked = snapshot.exists();
+    const bookingInfo = snapshot.val() || {};
+    const isBooked = bookingInfo.booked || false;
 
     if (isBooked) {
         // 取消预约
         await database.ref(`bookings/${key}`).remove();
         button.classList.remove('booked');
         button.style.backgroundColor = 'green'; // 未预约时显示绿色
+        borrowerDiv.textContent = ''; // 清空预约人姓名
     } else {
-        // 新增预约
-        await database.ref(`bookings/${key}`).set(true);
-        button.classList.add('booked');
-        button.style.backgroundColor = 'red'; // 预约后显示红色
+        // 弹出对话框，要求输入预约人姓名
+        const borrowerName = prompt('请输入预约人姓名：');
+        if (borrowerName) {
+            // 新增预约
+            await database.ref(`bookings/${key}`).set({
+                booked: true,
+                borrower: borrowerName
+            });
+            button.classList.add('booked');
+            button.style.backgroundColor = 'red'; // 预约后显示红色
+            borrowerDiv.textContent = borrowerName; // 显示预约人姓名
+        }
     }
 }
 
