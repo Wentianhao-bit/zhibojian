@@ -121,6 +121,7 @@ async function toggleBooking(selectedDate, roomId, slotId, button, borrowerDiv) 
             button.classList.add('booked');
             button.style.backgroundColor = 'red'; // 预约后显示红色
             borrowerDiv.textContent = borrowerName; // 显示预约人姓名
+            text-align: center;  /* 新增居中属性 */
         }
     }
 }
