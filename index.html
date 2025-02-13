@@ -3,18 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分时段直播间预约管理</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <title>预约系统</title>
+    <style>
+        /* 添加一些基本样式 */
+        #datePickerContainer {
+            margin-bottom: 20px;
+        }
+        #scheduleTable {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        .room {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .booking-button {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .booking-button.booked {
+            background-color: red;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>分时段直播间预约管理</h1>
-        <div id="datePickerContainer"></div> <!-- 日期选择器容器 -->
-        <div id="scheduleTable"></div> <!-- 预约表格容器 -->
-        <div class="schedule-table" id="scheduleTable"></div>
-    </div>
+    <div id="datePickerContainer"></div> <!-- 日期选择器 -->
+    <div id="scheduleTable"></div> <!-- 预约表格 -->
+
+    <!-- 引入 Firebase 和你的脚本 -->
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
