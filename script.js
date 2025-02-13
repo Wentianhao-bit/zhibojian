@@ -80,7 +80,7 @@ async function initScheduleTable(selectedDate) {
             const isBooked = !!bookings[key];
             
             button.className = `booking-button ${isBooked ? 'booked' : ''}`;
-            button.textContent = isBooked ? '取消预约' : '预约';
+            button.textContent = slot.time; // 直接在按钮上显示时间段
             button.onclick = () => toggleBooking(selectedDate, room.id, slot.id);
             roomDiv.appendChild(button);
         });
@@ -101,13 +101,11 @@ async function toggleBooking(selectedDate, roomId, slotId) {
     if (isBooked) {
         // 取消预约
         await database.ref(`bookings/${key}`).remove();
-        button.textContent = '预约';
         button.classList.remove('booked');
         button.style.backgroundColor = 'green'; // 未预约时显示绿色
     } else {
         // 新增预约
         await database.ref(`bookings/${key}`).set(true);
-        button.textContent = '取消预约';
         button.classList.add('booked');
         button.style.backgroundColor = 'red'; // 预约后显示红色
     }
