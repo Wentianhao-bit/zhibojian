@@ -6,6 +6,7 @@
     margin: 5px;
     cursor: pointer;
     text-align: center;
+    white-space: nowrap; /* 防止文字换行 */
 }
 
 .booking-button.booked {
