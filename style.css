@@ -7,7 +7,7 @@
     cursor: pointer;
     text-align: center;
     white-space: nowrap;
-    width: 15%;
+    width: 13%;
     border-radius: 12px; /* 圆角矩形 */
     transition: background-color 0.3s ease; /* 添加颜色过渡效果 */
     font-size: 14px;
