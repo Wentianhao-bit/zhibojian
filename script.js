@@ -4,7 +4,7 @@ const firebaseConfig = {
   authDomain: "lszbj-87e83.firebaseapp.com",
   databaseURL: "https://lszbj-87e83-default-rtdb.firebaseio.com",
   projectId: "lszbj-87e83",
-  storageBucket: "lszbj-87e83.firebasestorage.app",
+  storageBucket: "lszbj-87e83.appspot.com",
   messagingSenderId: "877584718053",
   appId: "1:877584718053:web:acd93008281742808f5c0c",
   measurementId: "G-SBR4LL2JHY"
