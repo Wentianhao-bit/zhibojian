@@ -81,7 +81,7 @@ async function initScheduleTable(selectedDate) {
             
             button.className = `booking-button ${isBooked ? 'booked' : ''}`;
             button.textContent = slot.time; // 直接在按钮上显示时间段
-            button.onclick = () => toggleBooking(selectedDate, room.id, slot.id);
+            button.onclick = () => toggleBooking(selectedDate, room.id, slot.id, button);
             roomDiv.appendChild(button);
         });
 
@@ -90,9 +90,8 @@ async function initScheduleTable(selectedDate) {
 }
 
 // 切换预约状态
-async function toggleBooking(selectedDate, roomId, slotId) {
+async function toggleBooking(selectedDate, roomId, slotId, button) {
     const key = `${selectedDate}-${roomId}-${slotId}`;
-    const button = document.querySelector(`button[onclick="toggleBooking('${selectedDate}', ${roomId}, ${slotId})"]`);
     
     // 获取当前状态
     const snapshot = await database.ref(`bookings/${key}`).once('value');
