@@ -10,6 +10,15 @@
     margin-bottom: 20px;
 }
 
+.room-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.time-slot {
+    margin-bottom: 10px;
+}
 
 .booking-button {
     background-color: #8bc34a; /* 柔和的绿色 */
