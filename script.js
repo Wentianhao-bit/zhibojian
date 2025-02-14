@@ -64,6 +64,8 @@ async function initScheduleTable(selectedDate) {
         roomDiv.appendChild(roomTitle);
 
         // 添加每个时间段的预约按钮
+        const slotsContainer = document.createElement('div');
+        slotsContainer.className = 'slots-container'; // 用于横向排列按钮
         timeSlots.forEach(slot => {
             const slotDiv = document.createElement('div');
             slotDiv.className = 'time-slot';
@@ -78,6 +80,13 @@ async function initScheduleTable(selectedDate) {
             button.className = `booking-button ${isBooked ? 'booked' : ''}`;
             button.textContent = slot.time; // 直接在按钮上显示时间段
             button.onclick = () => toggleBooking(selectedDate, room.id, slot.id, button);
+
+            // 如果直播间不可预约，禁用按钮
+            if (room.title.includes('不可预约')) {
+                button.disabled = true;
+                button.classList.add('disabled');
+            }
+
             slotDiv.appendChild(button);
 
             // 如果已预约，显示预约人姓名
@@ -88,9 +97,10 @@ async function initScheduleTable(selectedDate) {
                 slotDiv.appendChild(borrowerDiv);
             }
 
-            roomDiv.appendChild(slotDiv);
+            slotsContainer.appendChild(slotDiv);
         });
 
+        roomDiv.appendChild(slotsContainer);
         table.appendChild(roomDiv);
     });
 }
