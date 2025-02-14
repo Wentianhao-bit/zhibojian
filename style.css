@@ -1,56 +1,56 @@
-/* 添加预约人姓名的样式 */
+/* style.css */
 .borrower-name {
-    margin-top: 5px;
-    font-size: 14px;
-    color: #333;
-    text-align: center;  /* 居中显示 */
-    width: 100%;        /* 占满父容器宽度 */
+    margin-top: 2px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
 }
 
-/* 直播间样式 */
 .room {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
-/* 直播间标题样式 */
 .room-title {
-    font-size: 18px;
-    font-weight: bold;
+    width: 100%;
+    font-size: 16px;
+    color: #333;
+    padding: 8px;
+    background: #f5f5f5;
+    border-radius: 4px;
     margin-bottom: 10px;
 }
 
-/* 时间段容器样式 */
-.time-slot {
-    display: flex;       /* 横向排列 */
-    flex-wrap: wrap;     /* 允许换行 */
-    gap: 8px;           /* 按钮间距 */
-    margin-bottom: 10px;
+.slots-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-/* 预约按钮样式 */
-.booking-button {
-    background-color: #8bc34a; /* 柔和的绿色 */
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    white-space: nowrap;
-    border-radius: 12px; /* 圆角矩形 */
-    transition: background-color 0.3s ease; /* 颜色过渡效果 */
-    font-size: 14px;
-    flex: 0 0 auto;     /* 防止按钮伸缩 */
-    width: 120px;       /* 固定宽度 */
-}
-
-/* 已预约按钮样式 */
-.booking-button.booked {
-    background-color: #ff6b6b; /* 柔和的红色 */
-}
-
-/* 确保每个时间段容器内的内容垂直排列 */
 .time-slot {
     display: flex;
-    flex-direction: column; /* 垂直排列 */
-    align-items: center;    /* 内容居中 */
-    gap: 5px;              /* 按钮和姓名之间的间距 */
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.booking-button {
+    background-color: #8bc34a;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 6px;
+    width: 150px;
+    height: 40px;
+    transition: background-color 0.2s;
+}
+
+.booking-button.booked {
+    background-color: #ff6b6b;
+    cursor: not-allowed;
+}
+
+.booking-button.disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
 }
